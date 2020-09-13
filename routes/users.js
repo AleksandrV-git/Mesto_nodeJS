@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   fs.readFile(pathToUsers, 'utf8')
     .then((users) => {
+      /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
       const findUser = JSON.parse(users).find((user) => user._id === req.params.id);
       if (!findUser) {
         res.status(404).send({ message: 'Нет пользователя с таким id' });
