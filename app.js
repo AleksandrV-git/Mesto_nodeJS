@@ -7,18 +7,12 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const errReqHandler = (req, res, next) => {
-  if (req.params.path !== 'users' && req.params.path !== 'cards') {
-    res.status('500').send({ message: 'Запрашиваемый ресурс не найден' });
-    return;
-  }
-  next();
-};
-
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/:path', errReqHandler);
-app.use('/', routeCards);
-app.use('/', routeUsers);
+app.use(express.static(path.join(__dirname, './public')));
+app.use('/users', routeUsers);
+app.use('/cards', routeCards);
+app.use((req, res) => {
+  res.status(500).send({ message: 'Запрашиваемый ресурс не найден' });
+});
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

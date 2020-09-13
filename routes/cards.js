@@ -9,7 +9,7 @@ router.get('/cards', (_req, res) => {
       res.send(JSON.parse(cards));
     })
     .catch(() => {
-      res.status('500').send({ message: 'Запрашиваемый ресурс не найден' });
+      res.status(500).send({ message: 'Запрашиваемый ресурс не найден' });
     });
 });
 

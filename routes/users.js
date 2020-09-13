@@ -4,17 +4,17 @@ const path = require('path');
 
 const pathToUsers = path.join(__dirname, '../data/users.json');
 
-router.get('/users', (req, res) => {
+router.get('/', (req, res) => {
   fs.readFile(pathToUsers, 'utf8')
     .then((users) => {
       res.send(JSON.parse(users));
     })
     .catch(() => {
-      res.status('500').send({ message: 'Запрашиваемый ресурс не найден' });
+      res.status(500).send({ message: 'Запрашиваемый ресурс не найден' });
     });
 });
 
-router.get('/users/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   fs.readFile(pathToUsers, 'utf8')
     .then((users) => {
       const findUser = JSON.parse(users).find((user) => user._id === req.params.id);
@@ -25,7 +25,7 @@ router.get('/users/:id', (req, res) => {
       res.send(findUser);
     })
     .catch(() => {
-      res.status('500').send({ message: 'Запрашиваемый ресурс не найден' });
+      res.status(500).send({ message: 'Запрашиваемый ресурс не найден' });
     });
 });
 
